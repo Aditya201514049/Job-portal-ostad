@@ -24,7 +24,7 @@ app.get('/api/health', (req, res) => {
 // TODO: mount real routes here later
 app.use('/api/auth', require('./routes/auth.routes'));
 // app.use('/api/users', require('./routes/user.routes'));
-// app.use('/api/jobs', require('./routes/job.routes'));
+app.use('/api/jobs', require('./routes/job.routes'));
 // app.use('/api/applications', require('./routes/application.routes'));
 
 // 404 handler — catches unmatched routes
