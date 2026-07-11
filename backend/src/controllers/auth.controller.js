@@ -57,4 +57,13 @@ const login = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { register, login };
+// @desc    Logout user
+// @route   POST /api/auth/logout
+// @access  Private
+const logout = asyncHandler(async (req, res) => {
+  // In JWT, logout is handled by removing token on frontend
+  // This endpoint is for API completeness
+  res.json({ message: 'Logged out successfully' });
+});
+
+module.exports = { register, login, logout };
