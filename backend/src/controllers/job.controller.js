@@ -1,11 +1,11 @@
 const asyncHandler = require('../utils/asyncHandler');
-const Job = require('../models/Job');
+const jobService = require('../services/job.service');
 
 // @desc    Get all jobs
 // @route   GET /api/jobs
 // @access  Public
 const getJobs = asyncHandler(async (req, res) => {
-  const jobs = await Job.find().populate('employer', 'name email');
+  const jobs = await jobService.getAllJobs();
   res.json(jobs);
 });
 
@@ -13,12 +13,7 @@ const getJobs = asyncHandler(async (req, res) => {
 // @route   GET /api/jobs/:id
 // @access  Public
 const getJobById = asyncHandler(async (req, res) => {
-  const job = await Job.findById(req.params.id).populate('employer', 'name email');
-  
-  if (!job) {
-    return res.status(404).json({ message: 'Job not found' });
-  }
-  
+  const job = await jobService.getJobById(req.params.id);
   res.json(job);
 });
 
@@ -26,18 +21,7 @@ const getJobById = asyncHandler(async (req, res) => {
 // @route   POST /api/jobs
 // @access  Private (Employer only)
 const createJob = asyncHandler(async (req, res) => {
-  const { title, description, requirements, salary, location, jobType } = req.body;
-
-  const job = await Job.create({
-    title,
-    description,
-    requirements,
-    salary,
-    location,
-    jobType,
-    employer: req.user._id,
-  });
-
+  const job = await jobService.createJob(req.body, req.user._id);
   res.status(201).json(job);
 });
 
@@ -45,47 +29,23 @@ const createJob = asyncHandler(async (req, res) => {
 // @route   PUT /api/jobs/:id
 // @access  Private (Employer only, own jobs)
 const updateJob = asyncHandler(async (req, res) => {
-  const job = await Job.findById(req.params.id);
-
-  if (!job) {
-    return res.status(404).json({ message: 'Job not found' });
-  }
-
-  if (job.employer.toString() !== req.user._id.toString()) {
-    return res.status(403).json({ message: 'Not authorized to update this job' });
-  }
-
-  const updatedJob = await Job.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-    runValidators: true,
-  });
-
-  res.json(updatedJob);
+  const job = await jobService.updateJob(req.params.id, req.body, req.user._id);
+  res.json(job);
 });
 
 // @desc    Delete job
 // @route   DELETE /api/jobs/:id
 // @access  Private (Employer only, own jobs)
 const deleteJob = asyncHandler(async (req, res) => {
-  const job = await Job.findById(req.params.id);
-
-  if (!job) {
-    return res.status(404).json({ message: 'Job not found' });
-  }
-
-  if (job.employer.toString() !== req.user._id.toString()) {
-    return res.status(403).json({ message: 'Not authorized to delete this job' });
-  }
-
-  await Job.findByIdAndDelete(req.params.id);
-  res.json({ message: 'Job removed' });
+  const result = await jobService.deleteJob(req.params.id, req.user._id);
+  res.json(result);
 });
 
 // @desc    Get my posted jobs
 // @route   GET /api/jobs/my-posts
 // @access  Private (Employer only)
 const getMyJobs = asyncHandler(async (req, res) => {
-  const jobs = await Job.find({ employer: req.user._id });
+  const jobs = await jobService.getMyJobs(req.user._id);
   res.json(jobs);
 });
 
