@@ -85,7 +85,18 @@ const JobDetails = () => {
             <span className="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm font-medium">
               {job.location}
             </span>
+            <span className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium">
+              {job.companyName}
+            </span>
+            <span className="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm font-medium">
+              Deadline: {job.deadline ? new Date(job.deadline).toLocaleDateString() : 'N/A'}
+            </span>
           </div>
+        </div>
+
+        <div className="mb-8">
+          <h2 className="text-2xl font-bold mb-4">Company</h2>
+          <p className="text-gray-700 font-semibold">{job.companyName}</p>
         </div>
 
         <div className="mb-8">
@@ -96,6 +107,13 @@ const JobDetails = () => {
         <div className="mb-8">
           <h2 className="text-2xl font-bold mb-4">Requirements</h2>
           <p className="text-gray-700 whitespace-pre-line">{job.requirements}</p>
+        </div>
+
+        <div className="mb-8 pb-6 border-b">
+          <h2 className="text-2xl font-bold mb-4">Application Deadline</h2>
+          <p className="text-gray-700">
+            {job.deadline ? new Date(job.deadline).toLocaleDateString() : 'N/A'}
+          </p>
         </div>
 
         <div className="mb-8 pb-6 border-b">

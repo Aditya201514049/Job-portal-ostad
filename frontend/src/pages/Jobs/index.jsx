@@ -71,6 +71,7 @@ const Jobs = () => {
               className="bg-white border rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow"
             >
               <h3 className="text-xl font-bold mb-2">{job.title}</h3>
+              <p className="text-gray-600 mb-2 font-medium">{job.companyName}</p>
               <p className="text-gray-600 mb-4 line-clamp-2">
                 {job.description}
               </p>

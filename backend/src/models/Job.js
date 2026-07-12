@@ -27,6 +27,15 @@ const jobSchema = new mongoose.Schema({
     enum: ['full-time', 'part-time', 'contract', 'remote'],
     default: 'full-time',
   },
+  companyName: {
+    type: String,
+    required: [true, 'Please provide company name'],
+    trim: true,
+  },
+  deadline: {
+    type: Date,
+    required: [true, 'Please provide application deadline'],
+  },
   employer: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',

@@ -134,6 +134,41 @@ const CreateJob = () => {
           </div>
 
           <div>
+            <label htmlFor="companyName" className="block text-sm font-medium text-gray-700 mb-2">
+              Company Name
+            </label>
+            <input
+              id="companyName"
+              type="text"
+              {...register('companyName', {
+                required: 'Company name is required',
+              })}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              placeholder="e.g., Tech Corp"
+            />
+            {errors.companyName && (
+              <p className="text-red-500 text-sm mt-1">{errors.companyName.message}</p>
+            )}
+          </div>
+
+          <div>
+            <label htmlFor="deadline" className="block text-sm font-medium text-gray-700 mb-2">
+              Application Deadline
+            </label>
+            <input
+              id="deadline"
+              type="date"
+              {...register('deadline', {
+                required: 'Deadline is required',
+              })}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+            {errors.deadline && (
+              <p className="text-red-500 text-sm mt-1">{errors.deadline.message}</p>
+            )}
+          </div>
+
+          <div>
             <label htmlFor="jobType" className="block text-sm font-medium text-gray-700 mb-2">
               Job Type
             </label>
