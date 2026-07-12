@@ -36,6 +36,9 @@ const Header = () => {
           <div className="flex items-center space-x-4">
             {isAuthenticated ? (
               <>
+                <span className="text-gray-700">
+                  Hello, <span className="font-semibold">{user?.name}</span>
+                </span>
                 <Link
                   to="/dashboard"
                   className="text-gray-700 hover:text-blue-600"
