@@ -2,6 +2,8 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AuthProvider } from './context/AuthContext';
 import MainLayout from './components/layout/MainLayout';
+import ProtectedRoute from './components/auth/ProtectedRoute';
+import PublicRoute from './components/auth/PublicRoute';
 
 // Pages
 import Home from './pages/Home';
@@ -32,18 +34,24 @@ function App() {
       <AuthProvider>
         <Router>
           <Routes>
+            {/* Public Routes */}
             <Route path="/" element={<MainLayout><Home /></MainLayout>} />
             <Route path="/jobs" element={<MainLayout><Jobs /></MainLayout>} />
             <Route path="/jobs/:id" element={<MainLayout><JobDetails /></MainLayout>} />
-            <Route path="/jobs/create" element={<MainLayout><CreateJob /></MainLayout>} />
-            <Route path="/jobs/:id/edit" element={<MainLayout><EditJob /></MainLayout>} />
-            <Route path="/login" element={<MainLayout><Login /></MainLayout>} />
-            <Route path="/register" element={<MainLayout><Register /></MainLayout>} />
-            <Route path="/dashboard" element={<MainLayout><Dashboard /></MainLayout>} />
-            <Route path="/profile" element={<MainLayout><Profile /></MainLayout>} />
-            <Route path="/my-applications" element={<MainLayout><MyApplications /></MainLayout>} />
             <Route path="/about" element={<MainLayout><About /></MainLayout>} />
             <Route path="/contact" element={<MainLayout><Contact /></MainLayout>} />
+            
+            {/* Public Routes (redirect if authenticated) */}
+            <Route path="/login" element={<PublicRoute><MainLayout><Login /></MainLayout></PublicRoute>} />
+            <Route path="/register" element={<PublicRoute><MainLayout><Register /></MainLayout></PublicRoute>} />
+            
+            {/* Protected Routes (require authentication) */}
+            <Route path="/dashboard" element={<ProtectedRoute><MainLayout><Dashboard /></MainLayout></ProtectedRoute>} />
+            <Route path="/profile" element={<ProtectedRoute><MainLayout><Profile /></MainLayout></ProtectedRoute>} />
+            <Route path="/jobs/create" element={<ProtectedRoute><MainLayout><CreateJob /></MainLayout></ProtectedRoute>} />
+            <Route path="/jobs/:id/edit" element={<ProtectedRoute><MainLayout><EditJob /></MainLayout></ProtectedRoute>} />
+            <Route path="/my-applications" element={<ProtectedRoute><MainLayout><MyApplications /></MainLayout></ProtectedRoute>} />
+            
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </Router>
