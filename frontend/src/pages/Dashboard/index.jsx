@@ -1,11 +1,12 @@
 import { useAuth } from '../../context/AuthContext';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { jobsAPI } from '../../api/jobs.api';
 import { applicationsAPI } from '../../api/applications.api';
 import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
   const { user } = useAuth();
+  const queryClient = useQueryClient();
 
   // Fetch jobs for employers
   const { data: myJobs, isLoading: jobsLoading } = useQuery({
@@ -13,6 +14,24 @@ const Dashboard = () => {
     queryFn: () => jobsAPI.getMyJobs().then((res) => res.data),
     enabled: user?.role === 'employer',
   });
+
+  // Delete job mutation
+  const deleteJobMutation = useMutation({
+    mutationFn: (jobId) => jobsAPI.deleteJob(jobId),
+    onSuccess: () => {
+      queryClient.invalidateQueries(['myJobs']);
+      alert('Job deleted successfully!');
+    },
+    onError: (error) => {
+      alert(error.response?.data?.message || 'Failed to delete job');
+    },
+  });
+
+  const handleDelete = (jobId) => {
+    if (window.confirm('Are you sure you want to delete this job?')) {
+      deleteJobMutation.mutate(jobId);
+    }
+  };
 
   // Fetch applications for jobseekers
   const { data: myApplications, isLoading: applicationsLoading } = useQuery({
@@ -69,8 +88,12 @@ const Dashboard = () => {
                     >
                       Edit
                     </Link>
-                    <button className="flex-1 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600">
-                      Delete
+                    <button
+                      onClick={() => handleDelete(job._id)}
+                      disabled={deleteJobMutation.isPending}
+                      className="flex-1 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 disabled:bg-red-400 disabled:cursor-not-allowed"
+                    >
+                      {deleteJobMutation.isPending ? 'Deleting...' : 'Delete'}
                     </button>
                   </div>
                 </div>

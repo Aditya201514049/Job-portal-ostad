@@ -11,6 +11,8 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
+import CreateJob from './pages/CreateJob';
+import EditJob from './pages/EditJob';
 import MyApplications from './pages/MyApplications';
 import About from './pages/About';
 import Contact from './pages/Contact';
@@ -33,6 +35,8 @@ function App() {
             <Route path="/" element={<MainLayout><Home /></MainLayout>} />
             <Route path="/jobs" element={<MainLayout><Jobs /></MainLayout>} />
             <Route path="/jobs/:id" element={<MainLayout><JobDetails /></MainLayout>} />
+            <Route path="/jobs/create" element={<MainLayout><CreateJob /></MainLayout>} />
+            <Route path="/jobs/:id/edit" element={<MainLayout><EditJob /></MainLayout>} />
             <Route path="/login" element={<MainLayout><Login /></MainLayout>} />
             <Route path="/register" element={<MainLayout><Register /></MainLayout>} />
             <Route path="/dashboard" element={<MainLayout><Dashboard /></MainLayout>} />
