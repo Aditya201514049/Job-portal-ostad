@@ -64,8 +64,8 @@ const Profile = () => {
           <div className="bg-white border rounded-lg p-8 shadow-sm">
             <div className="mb-6 pb-6 border-b">
               <h2 className="text-xl font-semibold mb-2">Account Information</h2>
-              <p className="text-gray-600">Role: <span className="font-semibold capitalize">{user?.role}</span></p>
-              <p className="text-gray-600">Member since: {new Date(user?.createdAt).toLocaleDateString()}</p>
+              <p className="text-gray-600">Role: <span className="font-semibold capitalize">{profile?.role || user?.role}</span></p>
+              <p className="text-gray-600">Member since: {profile?.createdAt ? new Date(profile.createdAt).toLocaleDateString() : 'N/A'}</p>
             </div>
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
