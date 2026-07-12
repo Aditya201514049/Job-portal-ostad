@@ -10,6 +10,7 @@ import JobDetails from './pages/JobDetails';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
+import Profile from './pages/Profile';
 import MyApplications from './pages/MyApplications';
 import About from './pages/About';
 import Contact from './pages/Contact';
@@ -35,6 +36,7 @@ function App() {
             <Route path="/login" element={<MainLayout><Login /></MainLayout>} />
             <Route path="/register" element={<MainLayout><Register /></MainLayout>} />
             <Route path="/dashboard" element={<MainLayout><Dashboard /></MainLayout>} />
+            <Route path="/profile" element={<MainLayout><Profile /></MainLayout>} />
             <Route path="/my-applications" element={<MainLayout><MyApplications /></MainLayout>} />
             <Route path="/about" element={<MainLayout><About /></MainLayout>} />
             <Route path="/contact" element={<MainLayout><Contact /></MainLayout>} />
