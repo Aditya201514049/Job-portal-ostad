@@ -2,6 +2,8 @@
 
 A complete MERN stack Job Portal website where companies can post jobs and users can browse and apply for them.
 
+Live Link: https://job-portal-ostad.vercel.app
+
 ## 🌟 Features
 
 ### For Job Seekers
