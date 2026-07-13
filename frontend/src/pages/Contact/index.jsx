@@ -30,13 +30,13 @@ const Contact = () => {
             </div>
             <div>
               <h3 className="font-semibold mb-1">Phone</h3>
-              <p className="text-gray-600">+1 (555) 123-4567</p>
+              <p className="text-gray-600">01712123456</p>
             </div>
             <div>
               <h3 className="font-semibold mb-1">Address</h3>
               <p className="text-gray-600">
                 123 Job Street<br />
-                San Francisco, CA 94102
+                Tejgaon, Dhaka, Bangladesh
               </p>
             </div>
             <div>
